@@ -1,0 +1,63 @@
+{
+  "edu_learn_explain": {
+    "name": "知识讲解",
+    "description": "为学生讲解指定的知识主题",
+    "parameters": [
+      {
+        "name": "学习主题",
+        "desc": "学生希望学习或讲解的知识点，是一个具体的knowledge topic(例如二叉树、微积分等)",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "讲解深度",
+        "desc": "可选：入门、进阶或详细",
+        "type": "string",
+        "required": false
+      }
+
+    ]
+  },
+  "edu_material_search": {
+    "name": "搜索资料",
+    "description": "根据给定学科主题的具体知识点查找学习资料或大纲",
+    "parameters": [
+      {
+        "name": "学科主题",
+        "desc": "需要搜索资料的学科主题（人工智能、数学、生物）等",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "具体知识点",
+        "desc": "需要搜索的具体知识点或内容(例如：微积分、线性代数等)",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "资料类型",
+        "desc": "例如论文、讲义、练习题、参考文献等",
+        "type": "string",
+        "required": false
+      }
+    ]
+  },
+  "edu_question_answer": {
+    "name": "学习问题解答",
+    "description": "回答学生提出的具体问题",
+    "parameters": [
+      {
+        "name": "问题内容",
+        "desc": "学生希望解答的学习问题",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "相关学科",
+        "desc": "问题所属学科，如数学、物理等",
+        "type": "string",
+        "required": false
+      }
+    ]
+  }
+}

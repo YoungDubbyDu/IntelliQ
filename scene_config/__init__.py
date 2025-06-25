@@ -1,1 +1,1 @@
-print("SceneConfig package initialized.")
+

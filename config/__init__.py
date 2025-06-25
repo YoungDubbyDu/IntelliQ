@@ -1,5 +1,3 @@
-print("Config package initialized.")
-
 DEBUG = True
 
 # MODEL ------------------------------------------------------------------------
