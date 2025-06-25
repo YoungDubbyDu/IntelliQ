@@ -67,7 +67,9 @@ def send_message(message, user_input):
     }
 
     try:
-        response = requests.post(config.GPT_URL, headers=headers, json=data, verify=False)
+        response = requests.post(
+            config.GPT_URL, headers=headers, json=data, verify=True
+        )
         if response.status_code == 200:
             answer = response.json()["choices"][0]["message"]['content']
             print('LLM输出:', answer)

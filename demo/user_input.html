@@ -48,6 +48,33 @@
             margin-bottom: 10px;
             background-color: #e9e9e9;
         }
+
+        .message {
+            display: flex;
+            margin: 5px 0;
+        }
+
+        .user {
+            justify-content: flex-end;
+        }
+
+        .bot {
+            justify-content: flex-start;
+        }
+
+        .bubble {
+            max-width: 70%;
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
+
+        .user .bubble {
+            background-color: #dcf8c6;
+        }
+
+        .bot .bubble {
+            background-color: #f1f0f0;
+        }
         #input-container {
             display: flex;
             margin-top: 10px;
@@ -69,6 +96,13 @@
         }
         button:hover {
             background-color: #0056b3;
+        }
+        .info {
+            background-color: #fff9c4;
+            border-radius: 4px;
+            padding: 5px;
+            color: #333;
+            margin: 5px 0;
         }
         .fullscreen {
             width: 100vw;
@@ -119,7 +153,7 @@
 
             socket.onmessage = function(event) {
                 var chatOutput = document.getElementById('chat-output');
-                chatOutput.innerHTML += '<div>回答: ' + event.data + '</div>';
+                chatOutput.innerHTML += '<div class="message bot"><div class="bubble">' + event.data + '</div></div>';
                 chatOutput.scrollTop = chatOutput.scrollHeight; // 滚动到底部
             };
 
@@ -183,7 +217,7 @@
 
             // 显示用户输入的问题
             var chatOutput = document.getElementById('chat-output');
-            chatOutput.innerHTML += '<div>你: ' + message + '</div>';
+            chatOutput.innerHTML += '<div class="message user"><div class="bubble">' + message + '</div></div>';
 
             // 发送请求到 Flask API
             fetch('http://127.0.0.1:5000/multi_question', {
@@ -196,11 +230,18 @@
             .then(response => response.json())
             .then(data => {
                 // 显示返回的答案
-                chatOutput.innerHTML += '<div>回答: ' + data.answer + '</div>';
+                chatOutput.innerHTML += '<div class="message bot"><div class="bubble">' + data.answer + '</div></div>';
                 chatOutput.scrollTop = chatOutput.scrollHeight; // 滚动到底部
             })
             .catch(error => console.error('Error:', error));
         }
+
+        var eventSource = new EventSource('http://127.0.0.1:5000/info_stream');
+        eventSource.onmessage = function(event) {
+            var chatOutput = document.getElementById('chat-output');
+            chatOutput.innerHTML += '<div class="info">提示: ' + event.data + '</div>';
+            chatOutput.scrollTop = chatOutput.scrollHeight;
+        };
 
         function handleKeyPress(event) {
             if (event.key === 'Enter') {

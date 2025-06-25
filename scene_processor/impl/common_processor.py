@@ -5,6 +5,7 @@ from scene_config import scene_prompts
 from scene_processor.scene_processor import SceneProcessor
 from utils.helpers import get_raw_slot, update_slot, format_name_value_for_logging, is_slot_fully_filled, send_message, \
     extract_json_from_string, get_dynamic_example
+from utils.info_stream import push_info
 from utils.prompt_utils import get_slot_update_message, get_slot_query_user_message
 
 
@@ -36,6 +37,7 @@ class CommonProcessor(SceneProcessor):
 
     def respond_with_complete_data(self):
         # 当所有数据都准备好后的响应
+        push_info(f"{self.scene_name} 参数已完整，正在调用API")
         logging.debug(f'%s ------ 参数已完整，详细参数如下', self.scene_name)
         logging.debug(format_name_value_for_logging(self.slot))
         logging.debug(f'正在请求%sAPI，请稍后……', self.scene_name)
@@ -45,4 +47,5 @@ class CommonProcessor(SceneProcessor):
         message = get_slot_query_user_message(self.scene_name, self.slot, user_input)
         # 请求用户填写缺失的数据
         result = send_message(message, user_input)
+        push_info(result)
         return result
